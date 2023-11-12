@@ -1,26 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-import '@radix-ui/themes/styles.css';
+import { Routes, Route } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
+import Layout from './components/Layout';
+import Login from './pages/Login';
+import Register from './pages/Register';
+// import ForgotPassword from './pages/ForgotPassword';
+// import ResetPassword from './pages/ResetPassword';
+import Home from './pages/Home';
+import AuthRequired from './utils/AuthRequired';
+// import NotFound from './pages/NotFound';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {/* public routes */}
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        {/* <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="reset-password" element={<ResetPassword />} /> */}
+        {/* <Route path="404" element={<NotFound />} /> */}
+        <Route path="/" element={<Home />} />
+
+        {/* we want to protect these routes */}
+        <Route element={<AuthRequired />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+
+        {/* catch all */}
+        {/* <Route path="*" element={<Missing />} /> */}
+      </Route>
+    </Routes>
   );
 }
-
-export default App;
