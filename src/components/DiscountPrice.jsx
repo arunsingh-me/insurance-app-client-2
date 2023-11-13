@@ -2,7 +2,7 @@ import { TableCell } from '@mui/material';
 import { useState, useEffect } from 'react';
 import axios from '../utils/axios';
 
-export default function ({ price, id }) {
+export default function DiscountPrice({ price, id }) {
   const [data, setData] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 

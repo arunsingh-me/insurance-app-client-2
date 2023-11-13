@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../utils/axios';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -20,7 +20,7 @@ export default function PolicyTable({ id }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://0.tcp.in.ngrok.io:17080/insurance-service/policiesByPolicyTypeId/${id}`
+          `/insurance-service/policiesByPolicyTypeId/${id}`
         );
         setIsLoaded(true);
         setData(response.data);
