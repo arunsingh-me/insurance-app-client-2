@@ -1,5 +1,5 @@
 import PolicyTable from '../components/PolicyTable';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="">
+    <div className="p-5 m-5">
       <div className="flex justify-center space-x-4">
         {insuranceTypes.map((insuranceType, index) => (
           <Button

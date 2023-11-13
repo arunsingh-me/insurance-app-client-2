@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 const Navbar = () => {
   const { auth } = useAuth();
   return (
-    <div className="flex flex-row justify-end space-x-3 p-5 m-5 bg-slate-500 text-white">
+    <div className="flex flex-row justify-end items-center space-x-3 p-3 bg-slate-600 text-white">
+      <div className="flex-grow">
+        <h1 className="text-3xl">Insurance App</h1>
+      </div>
       <Link to="/">Home</Link>
       {!auth?.token && (
         <>

@@ -8,16 +8,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import DiscountPrice from './DiscountPrice';
 
 export default function PolicyTable({ id }) {
   const [data, setData] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://0.tcp.in.ngrok.io:13128/insurance-service/policiesByPolicyTypeId/${id}`
+          `http://0.tcp.in.ngrok.io:17080/insurance-service/policiesByPolicyTypeId/${id}`
         );
+        setIsLoaded(true);
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -25,7 +30,7 @@ export default function PolicyTable({ id }) {
     };
     fetchData(); // Call the API on component mount
   }, [id]);
-  return (
+  return isLoaded ? (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -55,7 +60,11 @@ export default function PolicyTable({ id }) {
                 </TableCell>
                 <TableCell align="right">{policy.policyCompany}</TableCell>
                 <TableCell align="right">{policy.tenure}</TableCell>
-                <TableCell align="right">{policy.policyPrice}</TableCell>
+                {/* <TableCell align="right">{policy.policyPrice}</TableCell> */}
+                <DiscountPrice
+                  price={policy.policyPrice}
+                  id={policy.policyId}
+                />
                 <TableCell align="right">{policy.coverage}</TableCell>
                 <TableCell align="right">
                   <ul>
@@ -77,5 +86,9 @@ export default function PolicyTable({ id }) {
         </TableBody>
       </Table>
     </TableContainer>
+  ) : (
+    <Box sx={{ display: 'flex' }}>
+      <CircularProgress />
+    </Box>
   );
 }

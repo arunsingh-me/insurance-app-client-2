@@ -1,16 +1,22 @@
-import { useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import axios from '../utils/axios';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { useForm, Controller } from 'react-hook-form';
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
 
 const Register = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const {
+    handleSubmit,
+    control,
+    formState: { errors }
+  } = useForm();
+
+  const onSubmit = async ({ username, name, email, password }) => {
     try {
-      await axios.post('http://localhost:8080/register', {
+      await axios.post('/auth/register', {
         username,
+        name,
         password,
         email
       });
@@ -19,56 +25,107 @@ const Register = () => {
     }
   };
   return (
-    // <div>
-    //   <form onSubmit={handleSubmit}>
-    //     <input
-    //       type="text"
-    //       value={username}
-    //       onChange={(e) => setUsername(e.target.value)}
-    //     />
-    //     <input
-    //       type="password"
-    //       value={password}
-    //       onChange={(e) => setPassword(e.target.value)}
-    //     />
-    //     <input
-    //       type="email"
-    //       value={email}
-    //       onChange={(e) => setEmail(e.target.value)}
-    //     />
-    //     <button type="submit">Register</button>
-    //   </form>
-    // </div>
-    // create a register form using material ui
-    <div className="flex flex-col justify-center items-center space-y-4">
-      <h1 className="text-2xl">Register</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-        <input
-          type="text"
-          placeholder="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="border border-gray-300 p-2 rounded-md"
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="border border-gray-300 p-2 rounded-md"
-        />
-        <input
-          type="email"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="border border-gray-300 p-2 rounded-md"
-        />
-        <button type="submit" variant="contained">
+    <div className="flex justify-center items-center">
+      <form className="m-10 p-10 max-w-lg" onSubmit={handleSubmit(onSubmit)}>
+        <Typography variant="h4" gutterBottom>
           Register
-        </button>
+        </Typography>
+
+        <Controller
+          name="name"
+          control={control}
+          defaultValue=""
+          rules={{
+            required: 'Name is required'
+          }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="Name"
+              margin="normal"
+              fullWidth
+              error={!!errors.name}
+              helperText={errors.name?.message}
+            />
+          )}
+        />
+
+        <Controller
+          name="username"
+          control={control}
+          defaultValue=""
+          rules={{
+            required: 'Username is required'
+          }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="Username"
+              margin="normal"
+              fullWidth
+              error={!!errors.username}
+              helperText={errors.username?.message}
+            />
+          )}
+        />
+
+        <Controller
+          name="email"
+          control={control}
+          defaultValue=""
+          rules={{
+            required: 'Email is required',
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+              message: 'Invalid email address'
+            }
+          }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="Email"
+              margin="normal"
+              fullWidth
+              error={!!errors.email}
+              helperText={errors.email?.message}
+            />
+          )}
+        />
+
+        <Controller
+          name="password"
+          control={control}
+          defaultValue=""
+          rules={{
+            required: 'Password is required'
+          }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              type="password"
+              label="Password"
+              margin="normal"
+              fullWidth
+              error={!!errors.password}
+              helperText={errors.password?.message}
+            />
+          )}
+        />
+        <br />
+
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          style={{ marginTop: '10px' }}
+        >
+          Register
+        </Button>
+
+        <Typography variant="body2" style={{ marginTop: '10px' }}>
+          Already have an account? <Link href="/login">Login</Link>
+        </Typography>
       </form>
-      <Link to="/login">Login</Link>
     </div>
   );
 };
