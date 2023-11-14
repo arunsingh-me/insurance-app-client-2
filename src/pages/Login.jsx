@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { useForm, Controller } from 'react-hook-form';
 import Link from '@mui/material/Link';
 import axios from '../utils/axios';
+import toast from 'react-hot-toast';
 
 export default function Login() {
   const { setAuth } = useAuth();
@@ -25,14 +26,22 @@ export default function Login() {
         username,
         password
       });
+
+      if (response.status !== 200) {
+        throw new Error(`Request failed with status code ${response.status}`);
+      }
+      toast.success('Login success');
       const data = response.data;
       console.log(data);
+      console.log(typeof data);
+
       setAuth(data);
       navigate(from);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
+
   return (
     <div className="flex items-center justify-center">
       <form className="m-10 p-10 max-w-lg" onSubmit={handleSubmit(onSubmit)}>
