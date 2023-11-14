@@ -9,10 +9,12 @@ export default function DiscountPrice({ price, id }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/discount/getdiscountbypolicyid/${id}`);
+        const response = await axios.get(
+          `/discount/getdiscountbypolicyid/${id}`
+        );
         setData(response.data);
         setIsLoaded(true);
-        console.log(data);
+        console.log(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }

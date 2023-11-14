@@ -21,24 +21,34 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = async ({ username, password }) => {
+    console.log('onSubmit called'); // Check if onSubmit is being called
+
     try {
-      const response = await axios.post('/auth/token', {
-        username,
-        password
-      });
+      const response = await axios.post(
+        '/auth/token',
+        {
+          username,
+          password
+        },
+        {
+          responseType: 'text'
+        }
+      );
 
       if (response.status !== 200) {
         throw new Error(`Request failed with status code ${response.status}`);
       }
+
       toast.success('Login success');
       const data = response.data;
-      console.log(data);
+      console.log(data); // Check if data is being logged
       console.log(typeof data);
 
-      setAuth(data);
-      navigate(from);
+      setAuth({ token: data, user: username });
+      // navigate(from);
     } catch (error) {
-      console.error(error);
+      toast.error('Login failed');
+      console.error('Error in request:', error); // Check if there's an error in the request
     }
   };
 
@@ -99,6 +109,10 @@ export default function Login() {
 
         <Typography variant="body2" style={{ marginTop: '10px' }}>
           Don't have an account? <Link href="/register">Register</Link>
+        </Typography>
+        <Typography variant="body2" style={{ marginTop: '10px' }}>
+          Forgot your password?{' '}
+          <Link href="/forgot-password">Forgot Password</Link>
         </Typography>
       </form>
     </div>

@@ -1,74 +1,63 @@
-import axios from '../utils/axios';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useForm, Controller } from 'react-hook-form';
+import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import MenuItem from '@mui/material/MenuItem';
 import toast from 'react-hot-toast';
-import { securityQuestions } from './ForgotPassword';
+import { useNavigate } from 'react-router-dom';
+import axios from '../utils/axios';
 
-const Register = () => {
+export const securityQuestions = [
+  "What is your mother's maiden name?",
+  'In which city were you born?',
+  'What is the name of your first pet?',
+  'What is your favorite movie?',
+  'What was the model of your first car?',
+  'What is the name of your favorite teacher?',
+  'What is the street where you grew up?',
+  'What is your favorite book?',
+  'Who is your childhood best friend?',
+  'What is your favorite vacation destination?',
+  'What is the make of your first mobile phone?',
+  'What is the name of the elementary school you attended?',
+  'What is your favorite color?',
+  'What is your favorite food?',
+  'What is your dream job?',
+  'What is the name of your favorite sports team?',
+  'What is the year of your high school graduation?',
+  'What is the nickname your friends gave you?',
+  'What is your favorite hobby?'
+];
+
+export default function ForgotPassword() {
   const {
     handleSubmit,
     control,
     formState: { errors }
   } = useForm();
+  const navigate = useNavigate();
 
-  const onSubmit = async ({
-    username,
-    name,
-    email,
-    password,
-    securityQuestion,
-    securityAnswer
-  }) => {
+  const onSubmit = async ({ username, securityQuestion, securityAnswer }) => {
     try {
-      const response = await axios.post(
-        '/auth/register',
-        {
-          username,
-          name,
-          password,
-          email,
-          securityQuestion,
-          securityAnswer
-        },
-        {
-          responseType: 'text'
-        }
-      );
-      toast.success('Register success', response.data);
+      const response = await axios.post('/forgot-password', {
+        username,
+        securityQuestion,
+        securityAnswer
+      });
+      toast.success('Password Reset done succesfully');
+      navigate('/login');
     } catch (error) {
-      toast.error('Register failed');
+      toast.error('Password Reset failed');
       console.error(error);
     }
   };
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex items-center justify-center">
       <form className="m-10 p-10 max-w-lg" onSubmit={handleSubmit(onSubmit)}>
         <Typography variant="h4" gutterBottom>
-          Register
+          Forgot Password
         </Typography>
-
-        <Controller
-          name="name"
-          control={control}
-          defaultValue=""
-          rules={{
-            required: 'Name is required'
-          }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              label="Name"
-              margin="normal"
-              fullWidth
-              error={!!errors.name}
-              helperText={errors.name?.message}
-            />
-          )}
-        />
 
         <Controller
           name="username"
@@ -88,50 +77,6 @@ const Register = () => {
             />
           )}
         />
-
-        <Controller
-          name="email"
-          control={control}
-          defaultValue=""
-          rules={{
-            required: 'Email is required',
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-              message: 'Invalid email address'
-            }
-          }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              label="Email"
-              margin="normal"
-              fullWidth
-              error={!!errors.email}
-              helperText={errors.email?.message}
-            />
-          )}
-        />
-
-        <Controller
-          name="password"
-          control={control}
-          defaultValue=""
-          rules={{
-            required: 'Password is required'
-          }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              type="password"
-              label="Password"
-              margin="normal"
-              fullWidth
-              error={!!errors.password}
-              helperText={errors.password?.message}
-            />
-          )}
-        />
-        <br />
         <Controller
           name="securityQuestion"
           control={control}
@@ -178,22 +123,22 @@ const Register = () => {
           )}
         />
         <br />
-
         <Button
           type="submit"
           variant="contained"
           color="primary"
           style={{ marginTop: '10px' }}
         >
-          Register
+          Submit
         </Button>
 
         <Typography variant="body2" style={{ marginTop: '10px' }}>
-          Already have an account? <Link href="/login">Login</Link>
+          Don't have an account? <Link href="/register">Register</Link>
+        </Typography>
+        <Typography variant="body2" style={{ marginTop: '10px' }}>
+          Remember your password? <Link href="/login">Login</Link>
         </Typography>
       </form>
     </div>
   );
-};
-
-export default Register;
+}
