@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import axios from '../utils/axios';
+import useAuth from '../hooks/useAuth';
 
 export const securityQuestions = [
   "What is your mother's maiden name?",
@@ -31,6 +32,7 @@ export const securityQuestions = [
 ];
 
 export default function ForgotPassword() {
+  const { auth, setAuth } = useAuth();
   const {
     handleSubmit,
     control,
@@ -38,15 +40,22 @@ export default function ForgotPassword() {
   } = useForm();
   const navigate = useNavigate();
 
-  const onSubmit = async ({ username, securityQuestion, securityAnswer }) => {
+  const onSubmit = async ({
+    username,
+    securityQuestion,
+    securityAnswer,
+    password
+  }) => {
     try {
-      const response = await axios.post('/forgot-password', {
+      const response = await axios.post('/auth/forgotpassword', {
         username,
         securityQuestion,
-        securityAnswer
+        securityAnswer,
+        newPassword: password
       });
       toast.success('Password Reset done succesfully');
       navigate('/login');
+      setAuth({});
     } catch (error) {
       toast.error('Password Reset failed');
       console.error(error);
@@ -55,9 +64,15 @@ export default function ForgotPassword() {
   return (
     <div className="flex items-center justify-center">
       <form className="m-10 p-10 max-w-lg" onSubmit={handleSubmit(onSubmit)}>
-        <Typography variant="h4" gutterBottom>
-          Forgot Password
-        </Typography>
+        {auth?.token ? (
+          <Typography variant="h4" gutterBottom>
+            Reset Password
+          </Typography>
+        ) : (
+          <Typography variant="h4" gutterBottom>
+            Forgot Password
+          </Typography>
+        )}
 
         <Controller
           name="username"
@@ -119,6 +134,26 @@ export default function ForgotPassword() {
               fullWidth
               error={!!errors.securityAnswer}
               helperText={errors.securityAnswer?.message}
+            />
+          )}
+        />
+        <br />
+        <Controller
+          name="password"
+          control={control}
+          defaultValue=""
+          rules={{
+            required: 'Password is required'
+          }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              type="password"
+              label="Password"
+              margin="normal"
+              fullWidth
+              error={!!errors.password}
+              helperText={errors.password?.message}
             />
           )}
         />

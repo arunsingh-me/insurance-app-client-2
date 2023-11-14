@@ -25,7 +25,8 @@ const Navbar = () => {
       )}
       {auth?.token && (
         <>
-          <p>Hi! {auth?.user}</p>
+          <p className="text-yellow-300">Hi! {auth?.user}</p>
+          <Link to="/forgot-password">Reset Password</Link>
           <Link to="/dashboard">Dashboard</Link>
           <Link onClick={handlelogout}>Logout</Link>
         </>

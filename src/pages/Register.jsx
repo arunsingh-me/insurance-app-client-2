@@ -7,8 +7,10 @@ import Link from '@mui/material/Link';
 import MenuItem from '@mui/material/MenuItem';
 import toast from 'react-hot-toast';
 import { securityQuestions } from './ForgotPassword';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  const navigate = useNavigate();
   const {
     handleSubmit,
     control,
@@ -39,6 +41,7 @@ const Register = () => {
         }
       );
       toast.success('Register success', response.data);
+      navigate('/login');
     } catch (error) {
       toast.error('Register failed');
       console.error(error);

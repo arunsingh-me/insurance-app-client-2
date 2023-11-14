@@ -45,7 +45,7 @@ export default function Login() {
       console.log(typeof data);
 
       setAuth({ token: data, user: username });
-      // navigate(from);
+      navigate('/dashboard');
     } catch (error) {
       toast.error('Login failed');
       console.error('Error in request:', error); // Check if there's an error in the request
