@@ -12,6 +12,17 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import DiscountPrice from './DiscountPrice';
 
+const tableHeaders = [
+  'Policy Name',
+  'Policy Type',
+  'Policy Company',
+  'Tenure',
+  'Policy Price',
+  'Coverage',
+  'Benefits',
+  'Buy'
+];
+
 export default function PolicyTable({ id }) {
   const [data, setData] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -35,14 +46,11 @@ export default function PolicyTable({ id }) {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Policy Name</TableCell>
-            <TableCell align="right">Policy Type</TableCell>
-            <TableCell align="right">Policy Company</TableCell>
-            <TableCell align="right">Tenure</TableCell>
-            <TableCell align="right">Policy Price</TableCell>
-            <TableCell align="right">Coverage</TableCell>
-            <TableCell align="right">Benefits</TableCell>
-            <TableCell align="right">Buy</TableCell>
+            {tableHeaders.map((header, index) => (
+              <TableCell align={index === 0 ? '' : 'right'} key={index}>
+                {header}
+              </TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
