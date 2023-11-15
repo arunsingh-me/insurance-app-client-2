@@ -63,7 +63,10 @@ export default function ForgotPassword() {
   };
   return (
     <div className="flex items-center justify-center">
-      <form className="m-10 p-10 max-w-lg" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="m-10 p-10 max-w-lg bg-white"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         {auth?.token ? (
           <Typography variant="h4" gutterBottom>
             Reset Password
