@@ -8,6 +8,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const handlelogout = () => {
     setAuth({});
+    localStorage.removeItem('auth');
     navigate('/');
     toast.success('Logout success');
   };
