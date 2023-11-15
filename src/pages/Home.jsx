@@ -2,20 +2,20 @@ import PolicyTable from '../components/PolicyTable';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 
+export const insuranceTypes = [
+  'Health Insurance',
+  'Life Insurance',
+  'Two-wheeler Insurance',
+  'Property Insurance',
+  'Car Insurance'
+];
+
 export default function Home() {
   const [id, setId] = useState(1);
 
   const checkDisabled = (buttonId) => {
     return id === buttonId ? true : false;
   };
-
-  const insuranceTypes = [
-    'Health Insurance',
-    'Life Insurance',
-    'Motor Insurance',
-    'Travel Insurance',
-    'Home Insurance'
-  ];
 
   return (
     <div className="p-5 m-5">

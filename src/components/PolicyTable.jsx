@@ -68,7 +68,6 @@ export default function PolicyTable({ id }) {
                 </TableCell>
                 <TableCell align="right">{policy.policyCompany}</TableCell>
                 <TableCell align="right">{policy.tenure}</TableCell>
-                {/* <TableCell align="right">{policy.policyPrice}</TableCell> */}
                 <DiscountPrice
                   price={policy.policyPrice}
                   id={policy.policyId}
