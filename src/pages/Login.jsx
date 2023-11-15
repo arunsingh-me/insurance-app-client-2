@@ -54,7 +54,10 @@ export default function Login() {
 
   return (
     <div className="flex items-center justify-center">
-      <form className="m-10 p-10 max-w-lg" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="m-10 p-10 max-w-lg bg-white"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <Typography variant="h4" gutterBottom>
           Login
         </Typography>

@@ -12,8 +12,15 @@ const Navbar = () => {
     toast.success('Logout success');
   };
   return (
-    <div className="flex flex-row justify-end items-center space-x-3 p-3 bg-slate-600 text-white">
-      <div className="flex-grow">
+    <div className="lg:flex lg:flex-row flex-col justify-end items-center space-x-3 p-3 bg-slate-600 text-white">
+      <div className="flex-grow flex items-center">
+        <img
+          className="p-2"
+          width="64"
+          height="64"
+          src="https://img.icons8.com/cotton/64/security-checked--v3.png"
+          alt="security-checked--v3"
+        />
         <h1 className="text-3xl">Insurance App</h1>
       </div>
       <Link to="/">Home</Link>

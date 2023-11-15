@@ -9,7 +9,6 @@ export const insuranceTypes = [
   'Property Insurance',
   'Car Insurance'
 ];
-
 export default function Home() {
   const [id, setId] = useState(1);
 
@@ -18,8 +17,8 @@ export default function Home() {
   };
 
   return (
-    <div className="p-5 m-5">
-      <div className="flex justify-center space-x-4">
+    <div className="flex flex-col p-1 m-1 lg:m-5 lg:p-5">
+      <div className="flex justify-center items-center md:space-x-4 flex-col md:flex-row space-x-2">
         {insuranceTypes.map((insuranceType, index) => (
           <Button
             key={index}
@@ -31,7 +30,7 @@ export default function Home() {
           </Button>
         ))}
       </div>
-      <div className="flex items-center justify-center m-5 p-5">
+      <div className="flex items-center justify-center lg:m-5 lg:p-5 mx-1 px-2 my-5 py-5">
         <PolicyTable id={id} />
       </div>
     </div>

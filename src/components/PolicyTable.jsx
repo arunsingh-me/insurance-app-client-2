@@ -44,11 +44,11 @@ export default function PolicyTable({ id }) {
   return isLoaded ? (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
+        <TableHead className="bg-gray-300">
           <TableRow>
             {tableHeaders.map((header, index) => (
               <TableCell align={index === 0 ? '' : 'right'} key={index}>
-                {header}
+                <b>{header}</b>
               </TableCell>
             ))}
           </TableRow>
