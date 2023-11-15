@@ -1,13 +1,10 @@
 import React from 'react';
-import ContextApp from './ContextApp';
-import UserDetailsForm from './UserDetailsForm';
+import PolicyBuyerDashboard from '../components/PolicyBuyerDashboard';
 
 export default function Dashboard() {
   return (
     <div>
-      <h1>Dashboard</h1>
-      <ContextApp />
-      <UserDetailsForm />
+      <PolicyBuyerDashboard />
     </div>
   );
 }
