@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import OrderDetails from './OrderDetails';
 import axios from 'axios';
-
+import useAuth from '../hooks/useAuth';
 import { Route, Router } from 'react-router-dom';
 import { Typography } from '@mui/material';
 
@@ -27,9 +27,9 @@ const ordersData = [
     policyAddOns: [
       {
         id: 101,
-        name: 'Policy A',
+        name: 'Policy B',
         expiryDate: '2024-01-01',
-        nominee: 'John Doe'
+        nominee: 'Ankit Kumar'
       }
     ]
   },
@@ -40,9 +40,9 @@ const ordersData = [
     policyAddOns: [
       {
         id: 101,
-        name: 'Policy A',
+        name: 'Policy B',
         expiryDate: '2024-01-01',
-        nominee: 'John Doe'
+        nominee: 'Ram Khatri'
       }
     ]
   },
@@ -56,11 +56,18 @@ const ordersData = [
         name: 'Policy A',
         expiryDate: '2024-01-01',
         nominee: 'John Doe'
+      },
+      {
+        id: 102,
+        name: 'Policy B',
+        expiryDate: '2025-03-01',
+        nominee: 'Anshuman Malik'
       }
     ]
   }
 ];
 const PolicyInfo = ({ policy }) => {
+  console.log('POlicy log' + policy);
   return (
     <div
       style={{
@@ -84,8 +91,9 @@ const PolicyInfo = ({ policy }) => {
   );
 };
 
-function PolicyBuyerDashboard({ id }) {
-  const [data, setData] = useState(null);
+function PolicyBuyerDashboard() {
+  const { auth } = useAuth();
+  const [data, setData] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const [selectedPolicy, setSelectedPolicy] = useState(null);
@@ -97,25 +105,38 @@ function PolicyBuyerDashboard({ id }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/order/getOrderByUserId/${id}`);
+        const response = await axios.get(
+          'http://0.tcp.in.ngrok.io:13720/order/getOrderByUserId/1',
+          {
+            headers: {
+              Authorization: `Bearer ${auth?.token}`
+              // Add any other headers if needed
+            }
+          }
+        );
+
+        setData((prevData) => [...prevData, response.data]);
         setIsLoaded(true);
-        setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     fetchData();
-  }, [id]);
-
+  }, []);
+  console.log(data);
   return (
     <div style={containerStyles}>
-      {ordersData.map((order) => (
-        <OrderDetails
-          key={order.id}
-          order={order}
-          onPolicyClick={handlePolicyClick}
-        />
-      ))}
+      {isLoaded ? (
+        data[0].map((order) => (
+          <OrderDetails
+            key={order.id}
+            order={order}
+            onPolicyClick={handlePolicyClick}
+          />
+        ))
+      ) : (
+        <p>Loading...</p>
+      )}
       {selectedPolicy && <PolicyInfo policy={selectedPolicy} />}
     </div>
   );

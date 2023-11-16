@@ -25,7 +25,7 @@ const OrderDetails = ({ order, onPolicyClick }) => {
         <Typography variant="h6" component="div" mt={2}>
           Policies:
         </Typography>
-        {order.policyAddOns.map((policy) => (
+        {/* {order.policyAddOns.map((policy) => (
           <Button
             color="primary"
             key={policy.id}
@@ -35,7 +35,7 @@ const OrderDetails = ({ order, onPolicyClick }) => {
           >
             {policy.name}
           </Button>
-        ))}
+        ))} */}
       </CardContent>
     </Card>
   );

@@ -1,11 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
+import Cart from './pages/Cart';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
 import AuthRequired from './utils/AuthRequired';
+import Dashboard from './pages/Dashboard';
 // import NotFound from './pages/NotFound';
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         {/* we want to protect these routes */}
         <Route element={<AuthRequired />}>
+          <Route path="/cart" element={<Cart />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
         {/* catch all */}

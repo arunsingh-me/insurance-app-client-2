@@ -25,6 +25,7 @@ const Navbar = () => {
         <h1 className="text-3xl">Insurance App</h1>
       </div>
       <Link to="/">Home</Link>
+      <Link to="/feedback">Feedbacks</Link>
       {!auth?.token && (
         <>
           <Link to="/login">Login</Link>
@@ -33,8 +34,9 @@ const Navbar = () => {
       )}
       {auth?.token && (
         <>
-          <p className="text-yellow-300">Hi! {auth?.user}</p>
+          <p className="text-yellow-300">Hi! {auth?.name}</p>
           <Link to="/forgot-password">Reset Password</Link>
+          <Link to="/cart">Cart</Link>
           <Link to="/dashboard">Dashboard</Link>
           <Link onClick={handlelogout}>Logout</Link>
         </>
