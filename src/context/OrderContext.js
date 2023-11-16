@@ -137,11 +137,17 @@ export const OrderProvider = ({ children }) => {
         'Content-Type': 'application/json'
       };
 
-      axios
-        .post('/order/addOrderWithUserDetails', updatedOrder[0], { headers })
-        .then((response) => {
-          console.log(response.status);
-        });
+      try {
+        const response = axios.post(
+          '/order/addOrderWithUserDetails',
+          updatedOrder[0],
+          { headers }
+        );
+        console.log(response.status);
+      } catch (error) {
+        console.error('Error posting order:', error.message);
+      }
+      //   return updatedOrder;
     });
 
     try {
@@ -153,6 +159,15 @@ export const OrderProvider = ({ children }) => {
       console.error('Error deleting data:', error.message);
     }
     // window.location.reload();
+    setUdm({
+      userName: '',
+      age: 0,
+      isTobaccoConsumer: false,
+      doesUserDrink: false,
+      nomineeName: '',
+      nomineeAge: 0,
+      nomineeRelation: ''
+    });
     toast.success('Order Placed Successfully');
     setCartChanged(!cartChanged);
     navigate('/feedback-form');

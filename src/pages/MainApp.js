@@ -4,7 +4,8 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 function MainApp(props) {
-  return (
+  const isAdmin = sessionStorage.getItem('admin') === 'true';
+  return isAdmin ? (
     <div className="flex flex-col justify-center items-center m-5 p-5">
       <Typography variant="h4" gutterBottom>
         Feedback
@@ -27,6 +28,12 @@ function MainApp(props) {
           <BackendCall />
         </Grid>
       </Grid>
+    </div>
+  ) : (
+    <div className="flex justify-center items-center m-5 p-5">
+      <Typography variant="h4" gutterBottom>
+        You are not logged in as Admin
+      </Typography>
     </div>
   );
 }

@@ -10,8 +10,10 @@ import {
 } from '@material-ui/core';
 import axios from '../utils/axios';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 export default function FeedbackForm() {
+  const navigate = useNavigate();
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
@@ -37,6 +39,7 @@ export default function FeedbackForm() {
     e.preventDefault();
     postfeedback();
     console.log('Form submitted');
+    navigate('/dashboard');
   };
 
   const postfeedback = async () => {

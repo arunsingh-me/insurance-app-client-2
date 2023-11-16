@@ -9,6 +9,12 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import {
+  Radio,
+  FormControl,
+  FormControlLabel,
+  RadioGroup
+} from '@mui/material';
 
 function UserDetailsForm(props) {
   const {
@@ -79,7 +85,7 @@ function UserDetailsForm(props) {
           onChange={handleChange}
         />
         <br />
-        <TextField
+        {/* <TextField
           style={{ width: '500px', margin: '5px' }}
           type="text"
           label="Tobacco Consumer?"
@@ -98,7 +104,7 @@ function UserDetailsForm(props) {
           value={udm.doesUserDrink}
           onChange={handleChange}
         />
-        <br />
+        <br /> */}
         <TextField
           style={{ width: '500px', margin: '5px' }}
           type="text"
@@ -128,11 +134,61 @@ function UserDetailsForm(props) {
           value={udm.nomineeRelation}
           onChange={handleChange}
         />
+        <FormControl
+          component="fieldset"
+          style={{ margin: '10px', color: 'grey' }}
+        >
+          <RadioGroup
+            row
+            aria-label="Tobacco Consumer"
+            name="isTobaccoConsumer"
+            value={udm.isTobaccoConsumer}
+            onChange={handleChange}
+          >
+            <FormControlLabel
+              value="true"
+              control={<Radio />}
+              label="Consume Tobacco"
+            />
+            <FormControlLabel
+              value="false"
+              control={<Radio />}
+              label="Doesn't consume"
+            />
+          </RadioGroup>
+        </FormControl>
+
+        <br />
+
+        <FormControl
+          component="fieldset"
+          style={{ margin: '10px', color: 'grey' }}
+        >
+          <RadioGroup
+            row
+            aria-label="Do you drink alcohol?"
+            name="doesUserDrink"
+            value={udm.doesUserDrink}
+            onChange={handleChange}
+          >
+            <FormControlLabel
+              value="true"
+              control={<Radio />}
+              label="Drinks Alcohol"
+            />
+            <FormControlLabel
+              value="false"
+              control={<Radio />}
+              label="Doesn't Drink Alcohol"
+            />
+          </RadioGroup>
+        </FormControl>
         <br />
         <br />
-        <Button type="submit" variant="contained" color="primary">
+        <br />
+        {/* <Button type="submit" variant="contained" color="primary">
           Save
-        </Button>
+        </Button> */}
       </form>
     </div>
   );

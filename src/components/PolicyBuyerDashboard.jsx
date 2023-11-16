@@ -130,7 +130,7 @@ function PolicyBuyerDashboard() {
       className="flex flex-col-reverse space-y-4 bg-neutral-200 rounded-md"
     >
       {isLoaded ? (
-        data[0].map((order) => (
+        data[0]?.map((order) => (
           <OrderDetails
             key={order.id}
             order={order}
