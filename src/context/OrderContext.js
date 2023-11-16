@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from '../utils/axios';
 import toast from 'react-hot-toast';
+import useAuth from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const OrderContext = createContext();
 
@@ -9,6 +11,8 @@ export const useOrder = () => {
 };
 
 export const OrderProvider = ({ children }) => {
+  const { auth } = useAuth();
+  const navigate = useNavigate();
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
@@ -18,7 +22,7 @@ export const OrderProvider = ({ children }) => {
 
   const [cart, setCart] = useState(null);
   const [order, setOrder] = useState([]);
-  const [userId, setUserId] = useState(2);
+  const [userId, setUserId] = useState(auth?.userId);
   const [policyAddOn, setPolicy] = useState([]);
   const [orderPrice, setOrderPrice] = useState(0);
   const [purchaseDate, setPurchaseDate] = useState(formattedDate);
@@ -36,7 +40,7 @@ export const OrderProvider = ({ children }) => {
   });
   const fetchCartItems = async () => {
     try {
-      const response = await axios.get('/shoppingcart/1/buyCart');
+      const response = await axios.get(`/shoppingcart/${auth?.userId}/buyCart`);
       return response.data;
 
       console.log(orderPrice);
@@ -47,10 +51,12 @@ export const OrderProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchAndSetCart = async () => {
-      const data = await fetchCartItems();
-      setCart([...data]);
       try {
-        const response = await axios.get('/shoppingcart/getTotalPrice/1');
+        const data = await fetchCartItems();
+        setCart([...data]);
+        const response = await axios.get(
+          `/shoppingcart/getTotalPrice/${auth?.userId}`
+        );
         setOrderPrice(response.data);
       } catch (error) {
         console.error('Error fetching cart items:', error);
@@ -66,7 +72,7 @@ export const OrderProvider = ({ children }) => {
 
     fetchAndSetCart();
     setCartChanged(false);
-  }, [cartChanged]);
+  }, [cartChanged, auth?.userId]);
   //   console.log(cart)
   // console.log(cartReqIds);
 
@@ -90,8 +96,8 @@ export const OrderProvider = ({ children }) => {
       console.error('Error deleting data:', error.message);
     }
     console.log(cartId);
+    setCartChanged(!cartChanged);
     // window.location.reload();
-    setCartChanged(true);
   };
 
   const addOrder = () => {
@@ -99,7 +105,7 @@ export const OrderProvider = ({ children }) => {
 
     let policyArray = [];
     let res = 0;
-    cart.forEach((element) => {
+    cart?.forEach((element) => {
       policyArray.push({
         policyId: element.policy.policyId,
         price: element.price
@@ -139,14 +145,17 @@ export const OrderProvider = ({ children }) => {
     });
 
     try {
-      const response = axios.delete(`/shoppingcart/deleteByUserId/1`);
+      const response = axios.delete(
+        `/shoppingcart/deleteByUserId/${auth.userId}`
+      );
       console.log('Deleted successfully:', response.data);
     } catch (error) {
       console.error('Error deleting data:', error.message);
     }
     // window.location.reload();
     toast.success('Order Placed Successfully');
-    setCartChanged(true);
+    setCartChanged(!cartChanged);
+    navigate('/feedback-form');
   };
 
   const contextValue = {

@@ -43,7 +43,7 @@ function UserDetailsForm(props) {
       style={{
         textAlign: 'center',
         padding: '20px',
-        maxWidth: '400px',
+        maxWidth: '600px',
         margin: 'auto',
         marginTop: '30px',
         marginBottom: '30px',
@@ -58,10 +58,10 @@ function UserDetailsForm(props) {
       </toolbar>
       <form
         onSubmit={handleSubmit}
-        style={{ maxWidth: '400px', margin: 'auto' }}
+        style={{ maxWidth: '500px', margin: 'auto' }}
       >
         <TextField
-          style={{ width: '400px', margin: '5px' }}
+          style={{ width: '500px', margin: '5px' }}
           label="Name"
           variant="outlined"
           name="userName"
@@ -70,7 +70,7 @@ function UserDetailsForm(props) {
         />
         <br />
         <TextField
-          style={{ width: '400px', margin: '5px' }}
+          style={{ width: '500px', margin: '5px' }}
           type="number"
           label="Age"
           variant="outlined"
@@ -80,7 +80,7 @@ function UserDetailsForm(props) {
         />
         <br />
         <TextField
-          style={{ width: '400px', margin: '5px' }}
+          style={{ width: '500px', margin: '5px' }}
           type="text"
           label="Tobacco Consumer?"
           variant="outlined"
@@ -90,7 +90,7 @@ function UserDetailsForm(props) {
         />
         <br />
         <TextField
-          style={{ width: '400px', margin: '5px' }}
+          style={{ width: '500px', margin: '5px' }}
           type="text"
           label="Do you drink alcohol?"
           variant="outlined"
@@ -100,7 +100,7 @@ function UserDetailsForm(props) {
         />
         <br />
         <TextField
-          style={{ width: '400px', margin: '5px' }}
+          style={{ width: '500px', margin: '5px' }}
           type="text"
           label="Nominee Name"
           variant="outlined"
@@ -110,7 +110,7 @@ function UserDetailsForm(props) {
         />
         <br />
         <TextField
-          style={{ width: '400px', margin: '5px' }}
+          style={{ width: '500px', margin: '5px' }}
           type="number"
           label="Nominee Age"
           variant="outlined"
@@ -120,7 +120,7 @@ function UserDetailsForm(props) {
         />
         <br />
         <TextField
-          style={{ width: '400px', margin: '5px' }}
+          style={{ width: '500px', margin: '5px' }}
           type="text"
           label="Nominee Relation"
           variant="outlined"

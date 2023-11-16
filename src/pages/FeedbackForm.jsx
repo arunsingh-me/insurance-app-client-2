@@ -52,16 +52,22 @@ export default function FeedbackForm() {
   };
 
   return (
-    <div className="App">
+    <div className="flex justify-center items-center p-10 m-20">
       <Grid container spacing={2}>
-        <Grid item xs={4}>
+        <Grid item xs={6} className="flex-grow">
           <img
             src="https://img.freepik.com/free-vector/organic-flat-feedback-concept_52683-62653.jpg?w=996&t=st=1700065075~exp=1700065675~hmac=2d7bfad5a97eed3664834fbf2f949c4acfa934b3a56e81c896e96fef6c898f63"
             alt="Your Image"
-            style={{ padding: '100px', height: '700px', width: '900px' }}
+            style={{
+              padding: '20px',
+              height: '100%',
+              width: '150%',
+              aspectRatio: 'auto',
+              backgroundBlendMode: 'color'
+            }}
           />
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={6}>
           <Grid>
             <Card
               style={{ maxWidth: 450, padding: '100px 5px', margin: '0 auto' }}
@@ -78,7 +84,7 @@ export default function FeedbackForm() {
                 >
                   Please provide your valuable Feedback
                 </Typography>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="m-2 p-2">
                   <Grid container spacing={1}>
                     <Grid item xs={12}>
                       <TextField

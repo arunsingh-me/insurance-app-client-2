@@ -42,60 +42,61 @@ function ContextApp() {
             )}
           </div>
         </toolbar>
-        {cart?.map((c) => (
-          <div className="card" key={c.policy.policyId}>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '25vh'
-              }}
-            >
-              <Card
+        {cart?.length > 0 &&
+          cart?.map((c) => (
+            <div className="card" key={c.policy.policyId}>
+              <Box
                 sx={{
-                  width: 600,
-                  backgroundColor: '#D9E3F5', // Light background color
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // Subtle shadow
-                  borderRadius: '8px',
-                  transition: 'transform 0.3s',
-                  '&:hover': {
-                    transform: 'scale(1.02)'
-                  }
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '25vh'
                 }}
-                variant="outlined"
               >
-                <CardContent>
-                  <Typography color="text.secondary" gutterBottom>
-                    <b>
-                      <h2>{c.policy.policyName}</h2>
-                    </b>
-                  </Typography>
-                  <Typography component="div">
-                    <b>{c.policyCompany}</b>
-                  </Typography>
-                  <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    {c.policy.policyType.policyTypeValue} Insurance
-                  </Typography>
-                  <Typography color="text.secondary">
-                    <b>$ {c.price}</b>
-                  </Typography>
-                  <Typography variant="body2">
-                    {c.policy.benefit.benefitValue.replace(/"/g, ' ')}
-                  </Typography>
-                  <br />
-                  <Button
-                    onClick={() => deleteCart(c.cartRequestId)}
-                    variant="outlined"
-                    color="error"
-                  >
-                    REMOVE
-                  </Button>
-                </CardContent>
-              </Card>
-            </Box>
-          </div>
-        ))}
+                <Card
+                  sx={{
+                    width: 600,
+                    backgroundColor: '#D9E3F5', // Light background color
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // Subtle shadow
+                    borderRadius: '8px',
+                    transition: 'transform 0.3s',
+                    '&:hover': {
+                      transform: 'scale(1.02)'
+                    }
+                  }}
+                  variant="outlined"
+                >
+                  <CardContent>
+                    <Typography color="text.secondary" gutterBottom>
+                      <b>
+                        <h2>{c.policy.policyName}</h2>
+                      </b>
+                    </Typography>
+                    <Typography component="div">
+                      <b>{c.policyCompany}</b>
+                    </Typography>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                      {c.policy.policyType.policyTypeValue} Insurance
+                    </Typography>
+                    <Typography color="text.secondary">
+                      <b>$ {c.price}</b>
+                    </Typography>
+                    <Typography variant="body2">
+                      {c.policy.benefit.benefitValue.replace(/"/g, ' ')}
+                    </Typography>
+                    <br />
+                    <Button
+                      onClick={() => deleteCart(c.cartRequestId)}
+                      variant="outlined"
+                      color="error"
+                    >
+                      REMOVE
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Box>
+            </div>
+          ))}
       </Item>
 
       <Item></Item>

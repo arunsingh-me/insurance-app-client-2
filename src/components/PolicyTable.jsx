@@ -14,6 +14,7 @@ import DiscountPrice from './DiscountPrice';
 import toast from 'react-hot-toast';
 import useAuth from '../hooks/useAuth';
 import { useOrder } from '../context/OrderContext';
+import { useNavigate } from 'react-router-dom';
 
 const tableHeaders = [
   'Policy Name',

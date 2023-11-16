@@ -22,22 +22,34 @@ const Navbar = () => {
           src="https://img.icons8.com/cotton/64/security-checked--v3.png"
           alt="security-checked--v3"
         />
-        <h1 className="text-3xl">Insurance App</h1>
+        <h1 className="text-3xl">InsureHub</h1>
       </div>
+      {auth?.token && <p className="text-yellow-300">Hi! {auth?.name}</p>}
       <Link to="/">Home</Link>
       <Link to="/feedback">Feedbacks</Link>
       {!auth?.token && (
         <>
-          <Link to="/login">Login</Link>
           <Link to="/register">Register</Link>
+          <Link
+            className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+            to="/login"
+          >
+            Login
+          </Link>
         </>
       )}
       {auth?.token && (
         <>
-          <p className="text-yellow-300">Hi! {auth?.name}</p>
+          <Link to="/feedback-form">Feedback Form</Link>
           <Link to="/forgot-password">Reset Password</Link>
           <Link to="/cart">Cart</Link>
-          <Link onClick={handlelogout}>Logout</Link>
+          <Link to="/dashboard">Dashboard</Link>
+          <Link
+            className="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
+            onClick={handlelogout}
+          >
+            Logout
+          </Link>
         </>
       )}
     </div>

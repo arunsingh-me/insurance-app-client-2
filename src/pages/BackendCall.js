@@ -24,9 +24,11 @@ function GetFeedback(props) {
 
   return (
     <div>
-      {feedback[0].map((fb) => (
-        <FeedbackCard key={fb.id} fb={fb} />
-      ))}
+      {feedback[0] ? (
+        feedback[0].map((fb) => <FeedbackCard key={fb.id} fb={fb} />)
+      ) : (
+        <p>Loading feedback...</p>
+      )}
     </div>
   );
 }

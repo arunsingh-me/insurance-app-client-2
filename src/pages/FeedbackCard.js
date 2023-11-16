@@ -5,11 +5,12 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 700,
-    margin: theme.spacing(2),
-    background: '#6dd5ed',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
+    margin: '5%',
+    padding: '5%',
+    background: 'white',
+    display: 'flex'
+    // justifyContent: 'center',
+    // alignItems: 'center'
   },
   avatar: {
     marginRight: theme.spacing(2)
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   user: {
     textAlign: 'left',
     fontWeight: 'italic',
-    textColor: 'blue',
+    textColor: 'black',
     fontFamily: 'georgia'
   },
   description: {
@@ -63,7 +64,7 @@ export default function FeedbackCard(props) {
                     {props.fb.title}
                   </Typography>
                   <Typography className={classes.user}>
-                    Anonymous User
+                    <i>Anonymous User</i>
                   </Typography>
                   <Typography className={classes.description}>
                     {props.fb.description}
