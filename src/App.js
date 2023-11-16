@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
+import Cart from './pages/Cart';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -20,7 +20,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         {/* we want to protect these routes */}
         <Route element={<AuthRequired />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
         {/* catch all */}
         {/* <Route path="*" element={<Missing />} /> */}

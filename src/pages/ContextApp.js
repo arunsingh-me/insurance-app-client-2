@@ -7,23 +7,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import { blue } from '@mui/material/colors';
-import Chip from '@mui/material/Chip';
 
-function ContextApp(props) {
-  const {
-    cart,
-    order,
-    userId,
-    purchaseDate,
-    udm,
-    setUdm,
-    addOrder,
-    deleteCart,
-    orderPrice
-  } = useOrder();
+function ContextApp() {
+  const { cart, addOrder, deleteCart, orderPrice } = useOrder();
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -37,17 +23,22 @@ function ContextApp(props) {
     <div>
       <Item>
         <toolbar>
-          <h1>YOUR CART</h1>
+          <Typography variant="h4" gutterBottom>
+            Your Cart
+          </Typography>
           <div>
             {cart?.length === 0 ? (
-              <h2>Your cart is empty!</h2>
+              <h1>Your cart is empty!</h1>
             ) : (
-              <h2>
-                Total Price: {orderPrice}{' '}
+              <div className="flex justify-center items-center space-x-6">
+                <Typography variant="h6" gutterBottom>
+                  Total Price: {orderPrice}
+                </Typography>
+                {/* Total Price: {orderPrice}{' '} */}
                 <Button onClick={addOrder} variant="contained" color="primary">
                   Buy Now
                 </Button>
-              </h2>
+              </div>
             )}
           </div>
         </toolbar>
@@ -58,7 +49,7 @@ function ContextApp(props) {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '50vh'
+                height: '25vh'
               }}
             >
               <Card

@@ -21,19 +21,11 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = async ({ username, password }) => {
-    console.log('onSubmit called'); // Check if onSubmit is being called
-
     try {
-      const response = await axios.post(
-        '/auth/token',
-        {
-          username,
-          password
-        },
-        {
-          responseType: 'text'
-        }
-      );
+      const response = await axios.post('/auth/token', {
+        username,
+        password
+      });
 
       if (response.status !== 200) {
         throw new Error(`Request failed with status code ${response.status}`);
@@ -44,7 +36,7 @@ export default function Login() {
       console.log(data); // Check if data is being logged
       console.log(typeof data);
 
-      setAuth({ token: data, user: username });
+      setAuth(data);
       navigate('/dashboard');
     } catch (error) {
       toast.error('Login failed');

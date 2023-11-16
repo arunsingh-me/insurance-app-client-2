@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import axios from '../utils/axios';
+import toast from 'react-hot-toast';
 
 const OrderContext = createContext();
 
@@ -22,6 +23,7 @@ export const OrderProvider = ({ children }) => {
   const [orderPrice, setOrderPrice] = useState(0);
   const [purchaseDate, setPurchaseDate] = useState(formattedDate);
   // const [cartReqIds,setCartReqIds]=useState([])
+  const [cartChanged, setCartChanged] = useState(false);
 
   const [udm, setUdm] = useState({
     userName: '',
@@ -63,7 +65,8 @@ export const OrderProvider = ({ children }) => {
     };
 
     fetchAndSetCart();
-  }, []);
+    setCartChanged(false);
+  }, [cartChanged]);
   //   console.log(cart)
   // console.log(cartReqIds);
 
@@ -76,17 +79,19 @@ export const OrderProvider = ({ children }) => {
     try {
       // Replace 'your_api_endpoint' with the actual URL of your API endpoint
       const response = axios.delete(
-        `http://localhost:8010/shoppingcart/deleteItemFromCart/${cartId}`
+        `/shoppingcart/deleteItemFromCart/${cartId}`
       );
 
       // Handle the response or perform additional actions
       console.log('Deleted successfully:', response.data);
+      toast.success('Deleted successfully');
     } catch (error) {
       // Handle errors
       console.error('Error deleting data:', error.message);
     }
     console.log(cartId);
-    window.location.reload();
+    // window.location.reload();
+    setCartChanged(true);
   };
 
   const addOrder = () => {
@@ -127,25 +132,21 @@ export const OrderProvider = ({ children }) => {
       };
 
       axios
-        .post(
-          'http://localhost:8020/order/addOrderWithUserDetails',
-          updatedOrder[0],
-          { headers }
-        )
+        .post('/order/addOrderWithUserDetails', updatedOrder[0], { headers })
         .then((response) => {
           console.log(response.status);
         });
     });
 
     try {
-      const response = axios.delete(
-        `http://localhost:8010/shoppingcart/deleteByUserId/1`
-      );
+      const response = axios.delete(`/shoppingcart/deleteByUserId/1`);
       console.log('Deleted successfully:', response.data);
     } catch (error) {
       console.error('Error deleting data:', error.message);
     }
-    window.location.reload();
+    // window.location.reload();
+    toast.success('Order Placed Successfully');
+    setCartChanged(true);
   };
 
   const contextValue = {
@@ -157,7 +158,8 @@ export const OrderProvider = ({ children }) => {
     setUdm,
     addOrder,
     deleteCart,
-    orderPrice
+    orderPrice,
+    setCartChanged
   };
 
   return (

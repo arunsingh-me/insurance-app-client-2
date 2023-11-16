@@ -1,13 +1,14 @@
 import React from 'react';
 import ContextApp from './ContextApp';
 import UserDetailsForm from './UserDetailsForm';
+// import MainApp from './MainApp';
 
-export default function Dashboard() {
+export default function Cart() {
   return (
     <div>
-      <h1>Dashboard</h1>
       <ContextApp />
       <UserDetailsForm />
+      {/* <MainApp /> */}
     </div>
   );
 }
