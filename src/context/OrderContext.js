@@ -25,7 +25,7 @@ export const OrderProvider = ({ children }) => {
   const [userId, setUserId] = useState(auth?.userId);
   const [policyAddOn, setPolicy] = useState([]);
   const [orderPrice, setOrderPrice] = useState(0);
-  const [purchaseDate, setPurchaseDate] = useState(formattedDate);
+  const [purchaseDate, setPurchaseDate] = useState('2023-11-17');
   // const [cartReqIds,setCartReqIds]=useState([])
   const [cartChanged, setCartChanged] = useState(false);
 

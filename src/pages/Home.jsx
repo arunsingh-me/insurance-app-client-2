@@ -18,7 +18,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col p-1 m-1 lg:m-5 lg:p-5">
+    <div className="flex flex-col p-1 m-1 lg:m-5 lg:p-5 h-screen">
       <img src={banner} className="mb-5 max-w-full" />
       <div className="flex justify-center items-center md:space-x-4 flex-col md:flex-row space-x-2 m-3">
         {insuranceTypes.map((insuranceType, index) => (

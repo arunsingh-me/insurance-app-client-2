@@ -55,7 +55,7 @@ export default function FeedbackForm() {
   };
 
   return (
-    <div className="flex justify-center items-center p-10 m-20">
+    <div className="flex justify-center items-center p-5 m-5 h-screen">
       <Grid container spacing={2}>
         <Grid item xs={6} className="flex-grow">
           <img

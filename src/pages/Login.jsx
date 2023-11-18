@@ -51,7 +51,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center h-screen">
       <form
         className="m-10 p-10 max-w-lg bg-white"
         onSubmit={handleSubmit(onSubmit)}

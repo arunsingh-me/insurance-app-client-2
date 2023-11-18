@@ -30,7 +30,7 @@ function MainApp(props) {
       </Grid>
     </div>
   ) : (
-    <div className="flex justify-center items-center m-5 p-5">
+    <div className="flex justify-center items-center m-5 p-5 h-screen">
       <Typography variant="h4" gutterBottom>
         You are not logged in as Admin
       </Typography>
